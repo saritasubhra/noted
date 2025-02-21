@@ -5,17 +5,19 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { FaPenAlt } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 function Navbar() {
   const { auth } = useAuth();
   const { isLoading, handleLogout } = useLogout();
   const [showMenu, setShowMenu] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <header className="flex justify-between  px-8 py-2 fixed z-10 bg-white w-screen">
       <Link to="/">
-        <div className="font-serif font-bold text-3xl flex gap-2">
-          Noted
+        <div className="font-serif font-bold text-3xl flex gap-1">
+          Noted.
           <span>
             <FaPenAlt />
           </span>
@@ -33,13 +35,36 @@ function Navbar() {
 
       <ul className={`${showMenu ? "nav-mobile" : "nav-desk"} `}>
         {auth ? (
-          <button
-            className="btn-black"
-            onClick={handleLogout}
-            disabled={isLoading}
-          >
-            Log out
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center bg-gray-200 p-2 pr-4 rounded-md"
+            >
+              <span>
+                <RiArrowDropDownLine size={30} />
+              </span>
+
+              <span>Hi, {auth.fullname}</span>
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg">
+                <Link to="/write">
+                  <li className="block px-4 py-2 hover:bg-gray-100">Write</li>
+                </Link>
+                <Link to="/profile">
+                  <li className="block px-4 py-2 hover:bg-gray-100">Profile</li>
+                </Link>
+                <button
+                  className="btn-black rounded-none w-full"
+                  onClick={handleLogout}
+                  disabled={isLoading}
+                >
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
         ) : (
           <>
             <NavLink to="/signup">
