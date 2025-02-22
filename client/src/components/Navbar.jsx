@@ -14,7 +14,7 @@ function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <header className="flex justify-between  px-8 py-2 fixed z-10 bg-white w-screen">
+    <header className="flex justify-between px-8 py-2 fixed z-10 bg-white w-screen">
       <Link to="/">
         <div className="font-serif font-bold text-3xl flex gap-1">
           Noted.
