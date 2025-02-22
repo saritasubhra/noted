@@ -9,6 +9,7 @@ import PageNotFound from "./pages/PageNotFound";
 import { useAuth } from "./context/AuthContext";
 import CreateBlog from "./pages/CreateBlog";
 import Profile from "./pages/Profile";
+import BlogDetails from "./pages/BlogDetails";
 
 function App() {
   const { auth } = useAuth();
@@ -35,6 +36,7 @@ function App() {
             path="/profile"
             element={auth ? <Profile /> : <Navigate to="/login" />}
           />
+          <Route path="/blogs/:id" element={<BlogDetails />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
