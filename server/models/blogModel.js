@@ -34,6 +34,14 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+blogSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "author",
+    select: "fullname email",
+  });
+  next();
+});
+
 const Blog = mongoose.model("Blog", blogSchema);
 
 module.exports = Blog;
