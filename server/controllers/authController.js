@@ -71,8 +71,6 @@ const logIn = async (req, res, next) => {
 };
 
 const protect = async (req, res, next) => {
-  console.log(req.cookies);
-
   try {
     let token;
     if (req.cookies.noted) {
