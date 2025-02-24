@@ -3,14 +3,16 @@ import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import CommentCard from "../components/CommentCard";
+import { useAuth } from "../context/AuthContext";
 
 function BlogDetails() {
   const [blog, setBlog] = useState();
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
+  const { auth } = useAuth();
 
   useEffect(() => {
     async function fetchABlogs() {
@@ -24,13 +26,28 @@ function BlogDetails() {
     fetchABlogs();
   }, [id]);
 
-  async function handleCommetSubmit(e) {
+  async function handleCommentSubmit(e) {
     e.preventDefault();
     try {
       setIsLoading(true);
       const res = await axios.post(`/comments`, { blogId: id, comment: input });
       setBlog({ ...blog, comments: [...blog.comments, res.data.data] });
       setInput("");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  async function handleLike() {
+    try {
+      setIsLoading(true);
+      const res = await axios.patch(`/blogs/like/${id}`);
+      setBlog({
+        ...blog,
+        likes: res.data.data.likes,
+        numOfLikes: res.data.data.numOfLikes,
+      });
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -47,6 +64,8 @@ function BlogDetails() {
     title,
     content,
     comments,
+    likes,
+    numOfLikes,
     createdAt,
   } = blog;
 
@@ -73,10 +92,17 @@ function BlogDetails() {
         </div>
 
         <div className="flex gap-2">
-          <button className="cursor-pointer">
-            <IoIosHeartEmpty size={25} />
+          <button
+            className="cursor-pointer hover:text-red-500"
+            onClick={handleLike}
+          >
+            {likes.includes(auth._id) ? (
+              <IoIosHeart fill="red" size={25} />
+            ) : (
+              <IoIosHeartEmpty size={25} />
+            )}
           </button>
-          <span>32</span>
+          <span>{numOfLikes}</span>
         </div>
       </div>
       <div className="flex justify-center items-center">
@@ -87,7 +113,7 @@ function BlogDetails() {
 
       <form
         className="p-4 border space-y-4 text-end rounded-md"
-        onSubmit={handleCommetSubmit}
+        onSubmit={handleCommentSubmit}
       >
         <textarea
           name="comment"
