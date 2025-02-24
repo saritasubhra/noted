@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import CommentCard from "../components/CommentCard";
@@ -13,7 +13,7 @@ function BlogDetails() {
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const { auth } = useAuth();
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchABlogs() {
       try {
@@ -28,6 +28,10 @@ function BlogDetails() {
 
   async function handleCommentSubmit(e) {
     e.preventDefault();
+    if (!auth) {
+      navigate("/login");
+      return;
+    }
     try {
       setIsLoading(true);
       const res = await axios.post(`/comments`, { blogId: id, comment: input });
@@ -40,6 +44,10 @@ function BlogDetails() {
     }
   }
   async function handleLike() {
+    if (!auth) {
+      navigate("/login");
+      return;
+    }
     try {
       setIsLoading(true);
       const res = await axios.patch(`/blogs/like/${id}`);
@@ -56,7 +64,6 @@ function BlogDetails() {
   }
 
   if (!blog) return <Spinner />;
-  console.log(blog);
 
   const {
     author: { fullname },
@@ -96,7 +103,7 @@ function BlogDetails() {
             className="cursor-pointer hover:text-red-500"
             onClick={handleLike}
           >
-            {likes.includes(auth._id) ? (
+            {likes.includes(auth?._id) ? (
               <IoIosHeart fill="red" size={25} />
             ) : (
               <IoIosHeartEmpty size={25} />
@@ -119,6 +126,7 @@ function BlogDetails() {
           name="comment"
           placeholder="Add a comment..."
           className="input"
+          required
           value={input}
           onChange={(e) => setInput(e.target.value)}
         ></textarea>
