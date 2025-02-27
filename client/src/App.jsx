@@ -8,7 +8,6 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import { useAuth } from "./context/AuthContext";
 import CreateBlog from "./pages/CreateBlog";
-import Profile from "./pages/Profile";
 import BlogDetails from "./pages/BlogDetails";
 import SearchResults from "./pages/SearchResults";
 
