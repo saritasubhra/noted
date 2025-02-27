@@ -8,9 +8,16 @@ const getAllBlogs = async (req, res, next) => {
     const skip = (page - 1) * limit;
 
     const filter = {};
-    const { category } = req.query;
+    const { category, search } = req.query;
     if (category && category !== "all") {
       filter.category = category;
+    }
+
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+      ];
     }
 
     const blogs = await Blog.find(filter)
@@ -18,6 +25,10 @@ const getAllBlogs = async (req, res, next) => {
       .skip(skip)
       .limit(limit);
     const totalBlogs = await Blog.countDocuments(filter);
+
+    console.log(JSON.stringify(filter, null, 2));
+
+    console.log(blogs);
 
     if (!blogs) {
       return next(new AppError("No blogs found", 404));
