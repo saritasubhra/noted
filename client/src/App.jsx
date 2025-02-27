@@ -33,10 +33,6 @@ function App() {
             path="/write"
             element={auth ? <CreateBlog /> : <Navigate to="/login" />}
           />
-          <Route
-            path="/profile"
-            element={auth ? <Profile /> : <Navigate to="/login" />}
-          />
           <Route path="/blogs/:id" element={<BlogDetails />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="*" element={<PageNotFound />} />

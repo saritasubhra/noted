@@ -12,8 +12,6 @@ function BlogProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log("1");
-
     fetchAllBlogs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
@@ -37,6 +35,7 @@ function BlogProvider({ children }) {
       setIsLoading(false);
     }
   }
+
   return (
     <BlogContext.Provider
       value={{

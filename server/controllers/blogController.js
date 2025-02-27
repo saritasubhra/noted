@@ -26,10 +26,6 @@ const getAllBlogs = async (req, res, next) => {
       .limit(limit);
     const totalBlogs = await Blog.countDocuments(filter);
 
-    console.log(JSON.stringify(filter, null, 2));
-
-    console.log(blogs);
-
     if (!blogs) {
       return next(new AppError("No blogs found", 404));
     }
