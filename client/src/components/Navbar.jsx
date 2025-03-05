@@ -26,7 +26,7 @@ function Navbar() {
   }
 
   return (
-    <header className="flex justify-between items-center flex-wrap gap-4 px-4 sm:px-8 py-2 fixed z-10 bg-white w-screen">
+    <header className="flex justify-between items-center flex-wrap gap-4 px-4 sm:px-8 py-4 fixed z-10 bg-white w-screen">
       <Link to="/">
         <div className="font-serif font-bold text-2xl xs:text-3xl flex gap-1">
           Noted.
