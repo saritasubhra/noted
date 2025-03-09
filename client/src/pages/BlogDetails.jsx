@@ -135,7 +135,7 @@ function BlogDetails() {
       <p className="text-xl font-serif font-thin leading-8 ">{content}</p>
 
       <form
-        className="p-4 border space-y-4 text-end rounded-md"
+        className="p-4 my-10 border space-y-4 text-end rounded-md"
         onSubmit={handleCommentSubmit}
       >
         <textarea

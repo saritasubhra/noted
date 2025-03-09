@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaPenAlt } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { CiEdit, CiLogout } from "react-icons/ci";
+import { CiEdit, CiLogout, CiUser } from "react-icons/ci";
 import { useBlog } from "../context/BlogContext";
 
 function Navbar() {
@@ -70,6 +70,15 @@ function Navbar() {
                       <CiEdit size={22} className="font-thin" />
                     </span>
                     <span>Write</span>
+                  </li>
+                </Link>
+
+                <Link to="/profile">
+                  <li className="px-4 py-2 flex items-center gap-2 hover:bg-gray-100">
+                    <span>
+                      <CiUser size={22} className="font-thin" />
+                    </span>
+                    <span>Profile</span>
                   </li>
                 </Link>
 
