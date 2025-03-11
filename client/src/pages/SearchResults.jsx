@@ -4,19 +4,20 @@ import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
 import BlogCard from "../components/BlogCard";
 import Spinner from "../components/Spinner";
-import { useBlog } from "../context/BlogContext";
+// import { useBlog } from "../context/BlogContext";
+import { useSearch } from "../context/SearchContext";
 
 function SearchResults() {
   const {
     searchResults,
     setSearchResults,
-    page,
-    setPage,
+    searchPage,
+    setSearchPage,
     hasMore,
     setHasMore,
     isLoading,
     setIsLoading,
-  } = useBlog();
+  } = useSearch();
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("q");
 
@@ -25,26 +26,42 @@ function SearchResults() {
 
     return () => {
       setSearchResults([]);
-      setPage(1);
+      setSearchPage(1);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
+  console.log(searchPage);
 
-  async function fetchBlogsBySearch(pageNum = 1) {
+  async function fetchBlogsBySearch() {
     try {
       setIsLoading(true);
       const res = await axios.get(
-        `/blogs?page=${pageNum}&search=${searchTerm}`
+        `/blogs?page=${searchPage}&search=${searchTerm}`
       );
       setSearchResults((prev) => [...prev, ...res.data.data]);
       setHasMore(res.data.hasMore);
-      setPage(pageNum);
+      setSearchPage((prev) => prev + 1);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
   }
+  // async function fetchBlogsBySearch(pageNum = 1) {
+  //   try {
+  //     setIsLoading(true);
+  //     const res = await axios.get(
+  //       `/blogs?page=${pageNum}&search=${searchTerm}`
+  //     );
+  //     setSearchResults((prev) => [...prev, ...res.data.data]);
+  //     setHasMore(res.data.hasMore);
+  //     setSearchPage(pageNum);
+  //   } catch (error) {
+  //     toast.error(error.response.data.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
 
   if (!searchResults.length) return <Spinner />;
 
@@ -60,7 +77,7 @@ function SearchResults() {
 
       {hasMore ? (
         <button
-          onClick={() => fetchBlogsBySearch(page + 1)}
+          onClick={fetchBlogsBySearch}
           disabled={isLoading}
           className="btn-white mt-10"
         >

@@ -5,6 +5,8 @@ const AppError = require("../utils/appError");
 const getAllBlogs = async (req, res, next) => {
   try {
     const page = req.query.page * 1 || 1;
+    console.log(page);
+
     const limit = 2;
     const skip = (page - 1) * limit;
 
