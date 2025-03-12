@@ -4,7 +4,6 @@ import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
 import BlogCard from "../components/BlogCard";
 import Spinner from "../components/Spinner";
-// import { useBlog } from "../context/BlogContext";
 import { useSearch } from "../context/SearchContext";
 
 function SearchResults() {
@@ -22,46 +21,28 @@ function SearchResults() {
   const searchTerm = searchParams.get("q");
 
   useEffect(() => {
+    setSearchResults([]);
+    setSearchPage(1);
     fetchBlogsBySearch();
 
-    return () => {
-      setSearchResults([]);
-      setSearchPage(1);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
-  console.log(searchPage);
 
-  async function fetchBlogsBySearch() {
+  async function fetchBlogsBySearch(pageNum = 1) {
     try {
       setIsLoading(true);
       const res = await axios.get(
-        `/blogs?page=${searchPage}&search=${searchTerm}`
+        `/blogs?page=${pageNum}&search=${searchTerm}`
       );
       setSearchResults((prev) => [...prev, ...res.data.data]);
       setHasMore(res.data.hasMore);
-      setSearchPage((prev) => prev + 1);
+      setSearchPage(pageNum);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
   }
-  // async function fetchBlogsBySearch(pageNum = 1) {
-  //   try {
-  //     setIsLoading(true);
-  //     const res = await axios.get(
-  //       `/blogs?page=${pageNum}&search=${searchTerm}`
-  //     );
-  //     setSearchResults((prev) => [...prev, ...res.data.data]);
-  //     setHasMore(res.data.hasMore);
-  //     setSearchPage(pageNum);
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
 
   if (!searchResults.length) return <Spinner />;
 
@@ -77,7 +58,8 @@ function SearchResults() {
 
       {hasMore ? (
         <button
-          onClick={fetchBlogsBySearch}
+          // onClick={fetchBlogsBySearch}
+          onClick={() => fetchBlogsBySearch(searchPage + 1)}
           disabled={isLoading}
           className="btn-white mt-10"
         >
