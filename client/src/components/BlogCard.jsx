@@ -5,7 +5,7 @@ function BlogCard({ blog }) {
     author: { fullname },
     banner,
     title,
-    category,
+    category: { categoryName },
     createdAt,
     _id,
   } = blog;
@@ -37,7 +37,7 @@ function BlogCard({ blog }) {
             </div>
           </div>
 
-          <div className="uppercase text-sm">{category}</div>
+          <div className="uppercase text-sm">{categoryName}</div>
         </div>
       </div>
       <div className="h-28 w-32 ">

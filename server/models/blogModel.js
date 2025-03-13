@@ -15,7 +15,8 @@ const blogSchema = new mongoose.Schema(
       required: [true, "Banner is required."],
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
       required: [true, "Category is required."],
     },
     content: {
@@ -51,6 +52,9 @@ blogSchema.virtual("comments", {
 
 blogSchema.pre(/^find/, function (next) {
   this.populate({
+    path: "category",
+    select: "categoryName",
+  }).populate({
     path: "author",
     select: "fullname",
   });
