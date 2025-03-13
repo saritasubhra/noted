@@ -6,7 +6,7 @@ function MostLikedBlogsList() {
 
   if (!mostLikedBlogs.length) return <Spinner />;
   return (
-    <div className="flex-1">
+    <div>
       <h1 className="text-lg font-bold  opacity-30 pb-4">Most Popular</h1>
       <ul className="space-y-2 text-lg">
         {mostLikedBlogs.map((blog, i) => (
