@@ -6,9 +6,6 @@ const CategoryContext = createContext();
 
 function CategoryProvider({ children }) {
   const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  console.log(categories);
 
   useEffect(() => {
     fetchAllCategories();
@@ -16,18 +13,15 @@ function CategoryProvider({ children }) {
 
   async function fetchAllCategories() {
     try {
-      setIsLoading(true);
       const res = await axios.get(`/categories`);
       setCategories(res.data.data);
     } catch (error) {
       toast.error(error.response.data.message);
-    } finally {
-      setIsLoading(false);
     }
   }
 
   return (
-    <CategoryContext.Provider value={{ categories, setCategories, isLoading }}>
+    <CategoryContext.Provider value={{ categories, setCategories }}>
       {children}
     </CategoryContext.Provider>
   );
