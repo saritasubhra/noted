@@ -11,6 +11,7 @@ import CreateBlog from "./pages/CreateBlog";
 import BlogDetails from "./pages/BlogDetails";
 import SearchResults from "./pages/SearchResults";
 import Profile from "./pages/Profile";
+import Category from "./pages/Category";
 
 function App() {
   const { auth } = useAuth();
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Home />} />
+
           <Route
             path="/signup"
             element={auth ? <Navigate to="/" /> : <Signup />}
@@ -37,6 +39,7 @@ function App() {
             path="/profile"
             element={auth ? <Profile /> : <Navigate to="/login" />}
           />
+          <Route path="/category/:category" element={<Category />} />
           <Route path="/blogs/:id" element={<BlogDetails />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="*" element={<PageNotFound />} />
