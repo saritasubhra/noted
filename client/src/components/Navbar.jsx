@@ -23,10 +23,10 @@ function Navbar() {
   }
 
   return (
-    <header className="fixed z-10 bg-white w-screen px-4 sm:px-8 py-4 ">
+    <header className="fixed z-10 bg-black text-white w-screen px-4 sm:px-8 py-4 ">
       <div className="flex justify-between items-center flex-wrap gap-4 ">
         <Link to="/">
-          <div className="font-serif font-bold text-2xl xs:text-3xl flex gap-1">
+          <div className="font-bold uppercase text-2xl xs:text-3xl flex gap-1">
             Noted.
             <span>
               <FaPenAlt />
@@ -51,7 +51,7 @@ function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center bg-gray-200 p-1 pr-4 rounded-md"
+                className="flex items-center bg-gray-800 p-1 pr-4 rounded-md"
               >
                 <span>
                   <RiArrowDropDownLine size={30} />
@@ -61,9 +61,9 @@ function Navbar() {
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg">
+                <div className="absolute right-0 mt-2 w-36 z-[12] bg-black shadow-lg rounded-lg ">
                   <Link to="/write">
-                    <li className="px-4 py-2 flex items-center gap-2 hover:bg-gray-100">
+                    <li className="px-4 py-2 flex items-center gap-2 hover:bg-gray-800 ">
                       <span>
                         <CiEdit size={22} className="font-thin" />
                       </span>
@@ -72,7 +72,7 @@ function Navbar() {
                   </Link>
 
                   <Link to="/profile">
-                    <li className="px-4 py-2 flex items-center gap-2 hover:bg-gray-100">
+                    <li className="px-4 py-2 flex items-center gap-2 hover:bg-gray-800">
                       <span>
                         <CiUser size={22} className="font-thin" />
                       </span>
@@ -81,7 +81,7 @@ function Navbar() {
                   </Link>
 
                   <button
-                    className="px-4 py-2 w-full flex items-center gap-2 hover:bg-gray-100"
+                    className="px-4 py-2 w-full flex items-center gap-2 hover:bg-gray-800"
                     onClick={handleLogout}
                     disabled={isLoading}
                   >
