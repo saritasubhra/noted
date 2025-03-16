@@ -5,7 +5,6 @@ const AppError = require("../utils/appError");
 const getAllBlogs = async (req, res, next) => {
   try {
     const page = req.query.page * 1 || 1;
-    console.log(page);
 
     const limit = 2;
     const skip = (page - 1) * limit;
@@ -36,6 +35,25 @@ const getAllBlogs = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       hasMore: totalBlogs > page * limit,
+      data: blogs,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getBlogsByCategory = async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+    const blogs = await Blog.find({ category: categoryId });
+
+    if (!blogs) {
+      return next(new AppError("No blogs found", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      results: blogs.length,
       data: blogs,
     });
   } catch (err) {
@@ -188,6 +206,7 @@ const mostLikedBlogs = async (req, res, next) => {
 
 module.exports = {
   getAllBlogs,
+  getBlogsByCategory,
   getBlog,
   createBlog,
   updateBlog,
