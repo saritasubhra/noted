@@ -7,6 +7,7 @@ function BlogCard({ blog }) {
     title,
     category: { categoryName },
     createdAt,
+    summary,
     _id,
   } = blog;
 
@@ -17,32 +18,21 @@ function BlogCard({ blog }) {
   });
 
   return (
-    <div className="flex gap-10 py-8 justify-between border-b border-gray-300">
-      <div className="flex-1 space-y-2">
-        <Link to={`/blogs/${_id}`}>
-          <h1 className="text-2xl font-semibold capitalize hover:underline pb-4">
-            {title}
-          </h1>
-        </Link>
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
-            <img
-              src="/defaultUser.png"
-              alt="profilePic"
-              className="h-10 w-10 rounded-full object-cover"
-            />
-            <div>
-              <p className="font-semibold">{fullname}</p>
-              <p className="text-sm">{publishedAt}</p>
-            </div>
-          </div>
-
-          <div className="uppercase text-sm">{categoryName}</div>
-        </div>
-      </div>
-      <div className="h-28 w-32 ">
+    <div>
+      <div className="h-56">
         <img src={banner} alt="banner" className="h-full w-full object-cover" />
       </div>
+      <p className="text-xs uppercase py-7">
+        <span className="px-2 bg-black text-white">{categoryName}</span>
+        <span className="ml-4">{publishedAt}</span>
+      </p>
+      <Link to={`/blogs/${_id}`}>
+        <h2 className="text-xl font-bold capitalize tracking-tight leading-6 hover:opacity-50 duration-300">
+          {title}
+        </h2>
+      </Link>
+      <p className="py-4">{summary}</p>
+      <p className="text-red-500 uppercase text-xs font-bold">{fullname}</p>
     </div>
   );
 }
