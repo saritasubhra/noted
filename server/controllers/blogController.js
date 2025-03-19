@@ -22,7 +22,8 @@ const getAllBlogs = async (req, res, next) => {
     const blogs = await Blog.find(filter)
       .select("banner title summary category createdAt")
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .sort("-createdAt");
     const totalBlogs = await Blog.countDocuments(filter);
 
     if (!blogs) {
@@ -42,7 +43,7 @@ const getAllBlogs = async (req, res, next) => {
 const getBlogsByCategory = async (req, res, next) => {
   try {
     const { categoryId } = req.params;
-    const blogs = await Blog.find({ category: categoryId });
+    const blogs = await Blog.find({ category: categoryId }).sort("-createdAt");
 
     if (!blogs) {
       return next(new AppError("No blogs found", 404));
@@ -80,7 +81,7 @@ const getBlog = async (req, res, next) => {
 
 const createBlog = async (req, res, next) => {
   try {
-    const { title, content, category, banner } = req.body;
+    const { title, content, category, summary, banner } = req.body;
     const { _id } = req.user;
 
     let cloudinaryResponse = null;
@@ -94,6 +95,7 @@ const createBlog = async (req, res, next) => {
       title,
       content,
       category,
+      summary,
       banner: cloudinaryResponse.secure_url
         ? cloudinaryResponse.secure_url
         : "",
