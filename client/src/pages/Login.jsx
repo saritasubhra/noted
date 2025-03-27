@@ -42,7 +42,7 @@ function Login() {
           />
         </div>
 
-        <button type="submit" className="btn-violet" disabled={isLoading}>
+        <button type="submit" className="btn mt-2" disabled={isLoading}>
           {isLoading ? (
             <PiSpinnerGapBold
               fill="white"
@@ -59,7 +59,7 @@ function Login() {
         Don&apos;t have an account?{" "}
         <Link
           to="/signup"
-          className="font-medium text-violet-400 hover:text-violet-500 hover:border-b"
+          className="font-medium text-red-500 dark:text-sky-400  hover:border-b"
         >
           Sign up
         </Link>

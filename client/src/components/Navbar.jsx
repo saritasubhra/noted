@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import useLogout from "../hooks/useLogout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CiEdit, CiLogout, CiUser } from "react-icons/ci";
@@ -16,6 +16,16 @@ function Navbar() {
   const { isLoading, handleLogout } = useLogout();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.removeItem("theme");
+    }
+  }, [isDarkMode]);
 
   return (
     <header className="fixed z-10 bg-black text-white w-screen px-4 sm:px-8 py-4 ">
@@ -78,10 +88,10 @@ function Navbar() {
           ) : (
             <>
               <NavLink to="/signup">
-                <li className="btn-black">Signup</li>
+                <li className="btn-trans">Signup</li>
               </NavLink>
               <NavLink to="/login">
-                <li className="btn-white">Login</li>
+                <li className="btn-sm">Login</li>
               </NavLink>
             </>
           )}
