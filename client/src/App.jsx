@@ -12,6 +12,7 @@ import BlogDetails from "./pages/BlogDetails";
 import SearchResults from "./pages/SearchResults";
 import Profile from "./pages/Profile";
 import Category from "./pages/Category";
+import HomeScreen from "./pages/HomeScreen";
 
 function App() {
   const { auth } = useAuth();
@@ -20,8 +21,9 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        <Route path="/" element={<HomeScreen />} />
         <Route element={<AppLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/blogs" element={<Home />} />
 
           <Route
             path="/signup"

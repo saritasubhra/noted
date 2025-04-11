@@ -152,10 +152,14 @@ function BlogDetails() {
       </div>
       <div className="text-xs uppercase flex justify-between py-7">
         <div>
-          <span className="px-2 bg-black text-white">{categoryName}</span>
+          <span className="px-2 bg-black text-white dark:bg-[#f79c0d] dark:text-black dark:font-semibold">
+            {categoryName}
+          </span>
           <span className="ml-4">{publishedAt}</span>
         </div>
-        <div className="text-red-500 font-bold">{fullname}</div>
+        <div className="text-red-500 dark:text-[#f79c0d] font-bold">
+          {fullname}
+        </div>
       </div>
 
       <div className="flex justify-between items-center py-2 border-y border-gray-200">
@@ -211,7 +215,7 @@ function BlogDetails() {
         {title}
       </h1>
 
-      <p>{content}</p>
+      <p className="dark:text-gray-300">{content}</p>
 
       {/* COMMENT FORM */}
       <form

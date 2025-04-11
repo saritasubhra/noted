@@ -23,7 +23,9 @@ function BlogCard({ blog }) {
         <img src={banner} alt="banner" className="h-full w-full object-cover" />
       </div>
       <p className="text-xs uppercase py-7">
-        <span className="px-2 bg-black text-white">{categoryName}</span>
+        <span className="px-2 bg-black text-white dark:bg-[#f79c0d] dark:text-black dark:font-semibold">
+          {categoryName}
+        </span>
         <span className="ml-4">{publishedAt}</span>
       </p>
       <Link to={`/blogs/${_id}`}>
@@ -31,8 +33,10 @@ function BlogCard({ blog }) {
           {title}
         </h2>
       </Link>
-      <p className="py-4">{summary}</p>
-      <p className="text-red-500 uppercase text-xs font-bold">{fullname}</p>
+      <p className="py-4 dark:text-gray-300">{summary}</p>
+      <p className="text-red-500 dark:text-[#f79c0d] uppercase text-xs font-bold">
+        {fullname}
+      </p>
     </div>
   );
 }
