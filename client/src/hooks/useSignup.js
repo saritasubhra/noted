@@ -25,7 +25,6 @@ function useSignup() {
 
   async function handleFormSubmission(e) {
     e.preventDefault();
-
     const success = handleInputValidation(formData);
     if (!success) return;
 
@@ -33,10 +32,9 @@ function useSignup() {
       setIsLoading(true);
       const res = await axios.post("/auth/signup", formData);
       toast.success(res.data.message);
-      localStorage.setItem("noted", JSON.stringify(res.data.data));
       setAuth(res.data.data);
       setFormData(initialState);
-      navigate("/");
+      navigate("/blogs");
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -48,13 +46,14 @@ function useSignup() {
     const { password, passwordConfirm } = formData;
 
     if (password.length < 8) {
-      toast.error("Password must be atleast of 8 characters.");
+      toast.error("Password must be of at least 8 characters.");
       return false;
     }
     if (password !== passwordConfirm) {
-      toast.error("Passwords do not match.");
+      toast.error("Passwords don't match.");
       return false;
     }
+
     return true;
   }
   return { formData, isLoading, handleFormData, handleFormSubmission };

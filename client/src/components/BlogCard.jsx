@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 function BlogCard({ blog }) {
   const {
     author: { fullname },
@@ -20,10 +19,11 @@ function BlogCard({ blog }) {
   return (
     <div>
       <div className="h-56">
-        <img src={banner} alt="banner" className="h-full w-full object-cover" />
+        <img src={banner} alt="banner" className="w-full h-full object-cover" />
       </div>
+
       <p className="text-xs uppercase py-7">
-        <span className="px-2 bg-black text-white dark:bg-[#f79c0d] dark:text-black dark:font-semibold">
+        <span className="px-2 bg-black text-white dark:bg-amber-300 dark:text-black dark:font-semibold">
           {categoryName}
         </span>
         <span className="ml-4">{publishedAt}</span>
@@ -33,8 +33,9 @@ function BlogCard({ blog }) {
           {title}
         </h2>
       </Link>
+
       <p className="py-4 dark:text-gray-300">{summary}</p>
-      <p className="text-red-500 dark:text-[#f79c0d] uppercase text-xs font-bold">
+      <p className="text-red-500 dark:text-amber-300 uppercase text-xs font-bold">
         {fullname}
       </p>
     </div>

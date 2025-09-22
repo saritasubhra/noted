@@ -36,6 +36,7 @@ function CreateBlog() {
             onChange={handleFormData}
           >
             <option value="">Select a category</option>
+
             {categories.map((item, i) => (
               <option key={i} value={item._id} className="capitalize">
                 {item.categoryName}
@@ -44,7 +45,7 @@ function CreateBlog() {
           </select>
         </div>
 
-        <div className="flex gap-4 items-center  border-4 border-teal-500 border-dotted p-3">
+        {/* <div className="flex gap-4 items-center border-4 border-teal-500 border-dotted p-3">
           <label
             htmlFor="file-upload"
             className="cursor-pointer bg-gray-300 font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-400 transition"
@@ -59,10 +60,16 @@ function CreateBlog() {
             onChange={handleImageChange}
             required
           />
-          <span id="file-name" className="text-gray-600">
-            No file chosen
-          </span>
-        </div>
+          <span className="text-gray-600">No file chosen</span>
+        </div> */}
+
+        <input
+          type="file"
+          required
+          accept="image/*"
+          onChange={handleImageChange}
+          className="p-2 border border-gray-300 rounded-md w-full"
+        />
 
         {formData?.banner && (
           <div>
@@ -91,7 +98,7 @@ function CreateBlog() {
             onChange={handleFormData}
           ></textarea>
           <button
-            className="bg-green-500 px-2 py-1 disabled:opacity-60"
+            className="bg-amber-300 text-black px-2 mt-2 py-1 disabled:opacity-75"
             disabled={formData.content?.length < 400 || isGenerating}
             onClick={() => handleGenerateSummary(formData.content)}
           >

@@ -9,7 +9,7 @@ function Signup() {
   return (
     <div className="max-w-sm sm:max-w-md mx-auto p-8 rounded-md shadow-2xl mt-40">
       <form className="w-full space-y-4" onSubmit={handleFormSubmission}>
-        <h1 className="text-3xl font-bold">Create your account</h1>
+        <h1 className="text-3xl font-bold"> Create your account</h1>
         <div>
           <label htmlFor="fullname" className="label">
             Full name
@@ -60,7 +60,7 @@ function Signup() {
 
         <div>
           <label htmlFor="passwordConfirm" className="label">
-            Confirm Password
+            Confirm password
           </label>
           <input
             type="password"
@@ -77,12 +77,11 @@ function Signup() {
         <button type="submit" className="btn mt-2" disabled={isLoading}>
           {isLoading ? (
             <PiSpinnerGapBold
-              fill="white"
               size={24}
-              className="animate-spin mx-auto"
+              className="animate-spin mx-auto text-white dark:text-black"
             />
           ) : (
-            "Create Account"
+            "Create account"
           )}
         </button>
       </form>
@@ -91,7 +90,7 @@ function Signup() {
         Already have an account?{" "}
         <Link
           to="/login"
-          className="font-medium text-red-500 dark:text-sky-400 hover:border-b"
+          className="font-medium text-red-500 dark:text-teal-300 hover:border-b"
         >
           Log in
         </Link>

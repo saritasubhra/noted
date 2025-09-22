@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
-import { useParams, useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import { useParams, useNavigate } from "react-router-dom";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { FaRegPauseCircle, FaRegStopCircle } from "react-icons/fa";
-import { FaRegCirclePlay } from "react-icons/fa6";
-import { PiSpeakerHighLight } from "react-icons/pi";
-import { GoComment } from "react-icons/go";
 import CommentCard from "../components/CommentCard";
 import { useAuth } from "../context/AuthContext";
+import { GoComment } from "react-icons/go";
+import { PiSpeakerHighLight } from "react-icons/pi";
+import { FaRegPauseCircle, FaRegStopCircle } from "react-icons/fa";
+import { FaRegCirclePlay } from "react-icons/fa6";
 
 function BlogDetails() {
   const [blog, setBlog] = useState();
@@ -18,10 +18,10 @@ function BlogDetails() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
+
   const { id } = useParams();
   const { auth } = useAuth();
   const navigate = useNavigate();
-
   useEffect(() => {
     async function fetchABlog() {
       try {
@@ -31,6 +31,7 @@ function BlogDetails() {
         toast.error(error.response.data.message);
       }
     }
+
     fetchABlog();
   }, [id]);
 
@@ -137,7 +138,6 @@ function BlogDetails() {
     createdAt,
     category: { categoryName },
   } = blog;
-  // console.log(blog);
 
   const publishedAt = new Date(createdAt).toLocaleDateString("en-US", {
     month: "short",
@@ -150,14 +150,15 @@ function BlogDetails() {
       <div className="h-[400px]">
         <img src={banner} alt="banner" className="w-full h-full object-cover" />
       </div>
-      <div className="text-xs uppercase flex justify-between py-7">
+
+      <div className="text-xs uppercase py-7 flex justify-between">
         <div>
           <span className="px-2 bg-black text-white dark:bg-[#f79c0d] dark:text-black dark:font-semibold">
             {categoryName}
           </span>
           <span className="ml-4">{publishedAt}</span>
         </div>
-        <div className="text-red-500 dark:text-[#f79c0d] font-bold">
+        <div className="text-red-500 dark:text-[#f79c0d] uppercase text-xs font-bold">
           {fullname}
         </div>
       </div>
@@ -171,12 +172,12 @@ function BlogDetails() {
           <div>
             {isSpeaking ? (
               <button onClick={handlePause}>
-                <FaRegPauseCircle size={24} />
+                <FaRegPauseCircle size={24} strokeWidth={0.5} />
               </button>
             ) : (
               <button onClick={handleReadAloud}>
                 {isPaused ? (
-                  <FaRegCirclePlay size={24} />
+                  <FaRegCirclePlay size={24} strokeWidth={0.5} />
                 ) : (
                   <PiSpeakerHighLight size={24} />
                 )}
@@ -186,16 +187,17 @@ function BlogDetails() {
 
           <div>
             <button onClick={handleStop}>
-              <FaRegStopCircle size={24} />
+              <FaRegStopCircle size={24} strokeWidth={0.5} />
             </button>
           </div>
+
           <div className="flex gap-1">
             <button
               className="cursor-pointer hover:text-red-500"
               onClick={handleLike}
             >
               {likes.includes(auth?._id) ? (
-                <IoIosHeart fill="red" size={22} />
+                <IoIosHeart size={22} fill="red" />
               ) : (
                 <IoIosHeartEmpty size={22} />
               )}
@@ -219,7 +221,7 @@ function BlogDetails() {
 
       {/* COMMENT FORM */}
       <form
-        className="p-4 my-10 border space-y-4 text-end rounded-md"
+        className="border p-4 my-10 space-y-4 text-end rounded-md"
         onSubmit={handleCommentSubmit}
       >
         <textarea

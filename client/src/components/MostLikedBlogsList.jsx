@@ -6,9 +6,10 @@ function MostLikedBlogsList() {
   const { mostLikedBlogs } = useBlog();
 
   if (!mostLikedBlogs.length) return <Spinner />;
+
   return (
-    <div>
-      <h1 className="text-lg font-bold  opacity-30 dark:opacity-60 pb-4">
+    <div className="w-full">
+      <h1 className="text-lg font-bold opacity-30 dark:opacity-60 pb-4">
         Most Popular
       </h1>
       <ul className="space-y-4 text-lg">
