@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "../lib/axios";
 import { generateSummary } from "../lib/gemini";
+import { useBlog } from "../context/BlogContext";
 
 const initialState = {
   title: "",
@@ -14,7 +15,8 @@ const initialState = {
 function useCreateBlog() {
   const [formData, setFormData] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
-  const [isGenerating, setTsGenerating] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { setBlogs } = useBlog();
 
   function handleFormData(e) {
     setFormData((prev) => {
@@ -24,7 +26,6 @@ function useCreateBlog() {
 
   async function handleFormSubmission(e) {
     e.preventDefault();
-
     const success = handleInputValidation();
     if (!success) return;
 
@@ -32,6 +33,7 @@ function useCreateBlog() {
       setIsLoading(true);
       const res = await axios.post("/blogs", formData);
       toast.success(res.data.message);
+      setBlogs((prev) => [res.data.data, ...prev]);
       setFormData(initialState);
     } catch (error) {
       toast.error(error.response.data.message);
@@ -48,7 +50,7 @@ function useCreateBlog() {
       return false;
     }
     if (content.length < 400) {
-      toast.error("Content must be atleast of 400 characters.");
+      toast.error("Content must be of at least 400 characters.");
       return false;
     }
 
@@ -70,13 +72,13 @@ function useCreateBlog() {
 
   async function handleGenerateSummary(content) {
     try {
-      setTsGenerating(true);
+      setIsGenerating(true);
       const data = await generateSummary(content);
       setFormData((prev) => ({ ...prev, summary: data }));
     } catch (error) {
       console.log(error);
     } finally {
-      setTsGenerating(false);
+      setIsGenerating(false);
     }
   }
 
