@@ -47,7 +47,11 @@ const blogSchema = new mongoose.Schema(
       default: 0,
     },
   },
-  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
 
 //VIRTUAL POPULATE
@@ -64,7 +68,7 @@ blogSchema.pre(/^find/, function (next) {
     select: "categoryName",
   }).populate({
     path: "author",
-    select: "fullname",
+    select: "fullname avatar",
   });
   next();
 });

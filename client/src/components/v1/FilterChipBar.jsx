@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { useCategory } from "../context/CategoryContext";
+import { useCategory } from "../../context/CategoryContext";
 import { NavLink } from "react-router-dom";
 
 export default function FilterChipBar() {

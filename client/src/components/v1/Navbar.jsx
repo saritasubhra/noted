@@ -1,15 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import useLogout from "../hooks/useLogout";
+import { useAuth } from "../../context/AuthContext";
+import useLogout from "../../hooks/useLogout";
 import { useEffect, useState } from "react";
 
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { CiEdit, CiLogout } from "react-icons/ci";
-import FilterChipBar from "./FilterChipBar";
+import FilterChipBar from "../FilterChipBar";
 import { IoIosSunny } from "react-icons/io";
 import { LuMoonStar } from "react-icons/lu";
-import Logo from "./Logo";
-import SearchInput from "./SearchInput";
+import Logo from "../Logo";
+import SearchInput from "../SearchInput";
 
 function Navbar() {
   const { auth } = useAuth();

@@ -1,6 +1,6 @@
-import Spinner from "./Spinner";
+import Spinner from "../Spinner";
 import BlogCard from "./BlogCard";
-import { useBlog } from "../context/BlogContext";
+import { useBlog } from "../../context/BlogContext";
 
 function BlogList() {
   const { blogs, hasMore, isLoading, fetchAllBlogs } = useBlog();

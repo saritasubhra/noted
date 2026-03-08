@@ -1,6 +1,6 @@
-import BlogCard from "../components/BlogCard";
-import Spinner from "../components/Spinner";
-import useSearchResults from "../hooks/useSearchResults";
+import BlogCard from "../../components/v1/BlogCard";
+import Spinner from "../../components/Spinner";
+import useSearchResults from "../../hooks/useSearchResults";
 
 function SearchResults() {
   const {

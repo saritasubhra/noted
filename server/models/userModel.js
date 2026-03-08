@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       enum: ["customer", "admin"],
       default: "customer",
     },
+    avatar: {
+      type: String,
+      default: "https://i.pravatar.cc/150?u=seraphina",
+    },
     password: {
       type: String,
       required: [true, "Please provide a password."],
@@ -40,7 +44,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 //DOCUMENT MIDDLEWARE: runs before .save() and .create()

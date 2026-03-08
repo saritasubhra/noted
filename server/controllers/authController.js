@@ -100,7 +100,7 @@ const restrictTo =
   (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return next(
-        new AppError("You are not allowed to perform this action.", 403)
+        new AppError("You are not allowed to perform this action.", 403),
       );
     }
     next();
@@ -120,6 +120,7 @@ const getProfile = (req, res) => {
       _id: req.user._id,
       fullname: req.user.fullname,
       email: req.user.email,
+      avatar: req.user.avatar,
     },
   });
 };
