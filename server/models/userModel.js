@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: "https://i.pravatar.cc/150?u=seraphina",
+      default:
+        "https://res.cloudinary.com/dnafuk97r/image/upload/v1773831607/default-profile_fvhngf.png",
     },
     googleId: {
       type: String,
