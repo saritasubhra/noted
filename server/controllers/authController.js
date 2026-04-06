@@ -11,8 +11,6 @@ const generateAndSendToken = (res, id) => {
 
   const isProduction = process.env.NODE_ENV === "production";
 
-  console.log({ isProduction });
-
   res.cookie(process.env.COOKIE_NAME, token, {
     maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     httpOnly: true,
@@ -119,13 +117,30 @@ const restrictTo =
     next();
   };
 
+// const logOut = (req, res) => {
+//   res.cookie(process.env.COOKIE_NAME, "", { maxAge: 0 });
+//   res.status(200).json({
+//     status: "success",
+//     message: "Logged out successfully",
+//   });
+// };
+
 const logOut = (req, res) => {
-  res.cookie(process.env.COOKIE_NAME, "", { maxAge: 0 });
+  const isProduction = process.env.NODE_ENV === "production";
+
+  res.clearCookie(process.env.COOKIE_NAME, {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "None" : "Lax",
+    path: "/",
+  });
+
   res.status(200).json({
     status: "success",
     message: "Logged out successfully",
   });
 };
+
 const getProfile = (req, res) => {
   res.status(200).json({
     status: "success",
