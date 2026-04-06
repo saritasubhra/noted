@@ -35,6 +35,17 @@ const signUp = async (req, res, next) => {
 
     generateAndSendToken(res, newUser._id);
 
+    // Check if cookie was actually set (header exists)
+    const cookieHeader = res.getHeader("Set-Cookie");
+    if (!cookieHeader) {
+      return next(
+        new AppError(
+          "Authentication failed. Could not set session cookie.",
+          500,
+        ),
+      );
+    }
+
     res.status(201).json({
       status: "success",
       message: "User created successsfully",
@@ -65,6 +76,17 @@ const logIn = async (req, res, next) => {
     }
 
     generateAndSendToken(res, user._id);
+
+    // Check if cookie was actually set (header exists)
+    const cookieHeader = res.getHeader("Set-Cookie");
+    if (!cookieHeader) {
+      return next(
+        new AppError(
+          "Authentication failed. Could not set session cookie.",
+          500,
+        ),
+      );
+    }
 
     res.status(200).json({
       status: "success",
