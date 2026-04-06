@@ -11,6 +11,8 @@ const generateAndSendToken = (res, id) => {
 
   const isProduction = process.env.NODE_ENV === "production";
 
+  console.log({ isProduction });
+
   res.cookie(process.env.COOKIE_NAME, token, {
     maxAge: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     httpOnly: true,
