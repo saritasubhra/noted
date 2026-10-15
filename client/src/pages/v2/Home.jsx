@@ -40,7 +40,7 @@ const Home = () => {
         <div className="mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-3">Blog</h2>
           <p className="text-gray-600 text-base max-w-2xl">
-            Here, we share travel tips, destination guides, and stories that
+            Here in, we share travel tips, destination guides, and stories that
             inspire your next adventure.
           </p>
         </div>
