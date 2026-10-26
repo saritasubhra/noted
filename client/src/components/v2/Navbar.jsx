@@ -161,7 +161,7 @@ function Navbar() {
       {path === "/" && (
         <div className="relative z-0 max-w-4xl mx-auto text-center pt-24 pb-32 px-6">
           <h1 className="text-6xl uppercase font-bold mb-8 tracking-tight">
-            Tell Your Story To Everybody
+            Tell Your Story Everybody
           </h1>
 
           <p className="text-lg md:text-xl opacity-70 max-w-2xl mx-auto font-normal leading-relaxed text-balance">
